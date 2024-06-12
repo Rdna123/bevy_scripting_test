@@ -56,7 +56,7 @@ fn fall(
     if !paused.0 {
         for (e, mut s) in &mut pos {
             s.translation.y -= 100.0 * time.delta_seconds();
-            println!("{}", s.translation.y);
+            // println!("{}", s.translation.y);
             if s.translation.y < -300. {
                 commands.entity(e).despawn();
                 println!("Despawn");
