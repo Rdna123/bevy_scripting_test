@@ -35,6 +35,8 @@ fn setup(mut commands: Commands, server: Res<AssetServer>) {
     ));
 }
 
+fn scripts_load(mut commands: Commands, server: Res<AssetServer>) {}
+
 #[derive(Resource)]
 struct Paused(bool);
 
