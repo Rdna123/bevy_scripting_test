@@ -16,21 +16,18 @@ fn main() {
 
 fn exit(mut app_exit: EventWriter<AppExit>, input: Res<ButtonInput<KeyCode>>) {
     if input.just_pressed(KeyCode::KeyQ) {
-        app_exit.send(AppExit);
+        app_exit.send(AppExit::Success);
     }
 }
 
 fn setup(mut commands: Commands, server: Res<AssetServer>) {
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn(Camera2d);
 
     commands.insert_resource(Paused(true));
 
     commands.spawn((
-        SpriteBundle {
-            texture: server.load("bevy.png"),
-            transform: Transform::from_xyz(100.0, 0.0, 0.0),
-            ..default()
-        },
+        Sprite::from_image(server.load("bevy.png")),
+        Transform::from_xyz(100.0, 0.0, 0.0),
         Character,
     ));
 }
@@ -57,7 +54,7 @@ fn fall(
 ) {
     if !paused.0 {
         for (e, mut s) in &mut pos {
-            s.translation.y -= 100.0 * time.delta_seconds();
+            s.translation.y -= 100.0 * time.delta_secs();
             // println!("{}", s.translation.y);
             if s.translation.y < -300. {
                 commands.entity(e).despawn();
